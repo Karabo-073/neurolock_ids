@@ -14,23 +14,17 @@ This project demonstrates a **real-time Intrusion Detection System (IDS)** built
 
 <pre>
 NeuroLock_IDS/
-│
-├── src/
-│     ├── neurolock_ids.cpp       # Main IDS source code
-│     ├── packet_parser.h         # Packet parsing utilities
-│     └── detection_logic.h       # Detection logic for scans/floods/payloads
-│
-├── docs/
+
 │     ├── project_documentation.md
 │     └── screenshots/
 │          ├── port_scan_alert.png
 │          ├── icmp_flood_alert.png
 │          └── suspicious_payload_alert.png
 │
-├── tests/
-│     └── test_localhost.sh       # Test scripts for safe localhost testing
-│
-└── README.md                     # Project documentation
+     ├── tests/
+         │     └── test_localhost.sh 
+               │
+                  └── README.md                    
 </pre>
 
 <br>
