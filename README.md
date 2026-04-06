@@ -1,96 +1,118 @@
-<!-- Cybersecurity Portfolio README -->
 
-<div align="center" style="font-family: Arial, sans-serif; line-height: 1.6;">
+<h1>NeuroLock IDS – Real-Time Intrusion Detection System</h1>
 
-<u><h1>NeuroLock IDS – Real-Time Network Intrusion Detection System</h1></u>
-
-<br>
-
-This project demonstrates a **real-time Intrusion Detection System (IDS)** built in C++ using libpcap. NeuroLock monitors network traffic, detects port scans, ICMP floods, and suspicious payloads, all in a **safe, controlled environment**. The project showcases professional skills in network security, C++ programming, and practical IDS development for cybersecurity portfolios.
-
-<br><br>
-
-<u><h2>Project Structure (Tree Diagram)</h2></u>
-
+<h2>Project Structure</h2>
 <pre>
 NeuroLock_IDS/
-
-│     ├── project_documentation.md
-│     └── screenshots/
-│          ├── port_scan_alert.png
-│          ├── icmp_flood_alert.png
-│          └── suspicious_payload_alert.png
-│
-     ├── tests/
-         │     └── test_localhost.sh 
-               │
-                  └── README.md                    
+├── project_documentation.md
+├── tests/
+│   └── test_localhost.sh
+└── README.md
 </pre>
 
-<br>
+<h2>Overview</h2>
+<p>
+NeuroLock IDS is a real-time Intrusion Detection System developed in C++ using libpcap.
+It monitors network traffic and detects threats such as port scans, ICMP floods, and suspicious payloads.
+All operations are conducted safely in a controlled environment.
+</p>
 
-<u><h2>Key Features</h2></u>
+<h2>Key Features</h2>
+<ul>
+<li>Real-time packet capture using libpcap</li>
+<li>Port scan detection across multiple TCP ports</li>
+<li>ICMP flood detection (DoS behavior)</li>
+<li>Payload inspection for suspicious keywords</li>
+<li>Safe Mode for localhost testing</li>
+<li>Lightweight and high-performance C++ implementation</li>
+</ul>
 
-| Feature | Description |
-| --- | --- |
-| Real-Time Packet Capture | Continuously captures TCP/ICMP packets using libpcap for inspection |
-| Port Scan Detection | Alerts when a single IP scans multiple TCP ports in a short time |
-| ICMP Flood Detection | Detects high-frequency ICMP traffic indicating potential DoS |
-| Payload Inspection | Flags TCP payloads with suspicious keywords (e.g., "admin", "password") |
-| Safe Testing (Safe Mode) | Monitors only localhost or selected IPs to avoid scanning external networks |
-| Lightweight & Fast | Efficient C++ implementation using maps and sets for low-latency processing |
+<h2>How It Works</h2>
 
-<br>
+<h3>1. Packet Capture</h3>
+<p>Captures live network traffic from the interface using libpcap.</p>
 
-<u><h2>How It Works</h2></u>
+<h3>2. Packet Parsing</h3>
+<ul>
+<li>Ethernet Header – Validates IP traffic</li>
+<li>IP Header – Extracts source and destination IP addresses</li>
+<li>TCP/ICMP Headers – Identifies protocol and port information</li>
+</ul>
 
-This IDS monitors network traffic in real-time through three main stages:
+<h3>3. Detection Engine</h3>
+<ul>
+<li>Port Scan Detection – Detects repeated connections across multiple ports</li>
+<li>ICMP Flood Detection – Flags sources exceeding a threshold of ICMP packets</li>
+<li>Suspicious Payload Analysis – Flags sensitive keywords like "admin" or "password"</li>
+</ul>
 
-<ol>
-    <li><strong>Packet Capture:</strong> libpcap captures live TCP/ICMP packets from the network interface.</li>
-    <li><strong>Packet Parsing:</strong> 
-        <ul>
-            <li>Ethernet Header – Checks if the packet is IP traffic</li>
-            <li>IP Header – Extracts source/destination IP addresses</li>
-            <li>TCP/ICMP Header – Identifies traffic type and port numbers</li>
-        </ul>
-    </li>
-    <li><strong>Detection Logic:</strong>
-        <ul>
-            <li>Port Scan – Detects repeated connections across multiple ports</li>
-            <li>ICMP Flood – Flags sources exceeding a threshold of ICMP packets</li>
-            <li>Suspicious Payload – Identifies login or SQL injection-like payloads</li>
-        </ul>
-    </li>
-</ol>
+<h2>Testing & Results</h2>
+<table>
+<tr>
+<th>Test</th>
+<th>Command</th>
+<th>Result</th>
+</tr>
 
-<br>
+<tr>
+<td>Port Scan</td>
+<td><code>nmap -sT -p 1-9000 127.0.0.1</code></td>
+<td>Alert triggered for multi-port scanning</td>
+</tr>
 
-<u><h2>Testing & Results</h2></u>
+<tr>
+<td>ICMP Flood</td>
+<td><code>ping -i 0.002 -f 127.0.0.1</code></td>
+<td>High-frequency ICMP traffic detected</td>
+</tr>
 
-| Test Type | Setup / Command | Observed Behavior |
-| --- | --- | --- |
-| Port Scan Detection | nmap -sT -p 1-9000 127.0.0.1 | IDS triggered alert when multiple ports were accessed |
-| ICMP Flood Detection | ping -i 0.002 -f 127.0.0.1 | IDS flagged high-frequency ICMP traffic |
-| Suspicious Payload Detection | curl -X POST http://127.0.0.1:8080 -d "username=admin&password=123" | IDS detected suspicious POST payload with username/password |
+<tr>
+<td>Payload Attack</td>
+<td><code>curl -X POST http://127.0.0.1:8080 -d "username=admin&password=123"</code></td>
+<td>Suspicious payload flagged</td>
+</tr>
+</table>
 
-**Testing Notes:**  
-- All tests conducted in **Safe Mode** (localhost only)  
-- Demonstrates real-time detection of network and application-layer attacks  
-- Alerts include source IP, destination IP, and type of threat  
+<h3>Testing Notes</h3>
+<ul>
+<li>All tests conducted in Safe Mode (localhost only)</li>
+<li>Real-time detection across network and application layers</li>
+<li>Alerts include source IP, destination IP, and threat type</li>
+</ul>
 
-<br>
+<h2>Live Detection Example</h2>
+<div class="terminal">
+[INFO] Monitoring started...<br>
+[ALERT] Port Scan detected from 127.0.0.1<br>
+[ALERT] ICMP Flood detected<br>
+[ALERT] Suspicious Payload detected: "password"<br>
+</div>
 
-<u><h2>Conclusion</h2></u>
+<h2>How to Run</h2>
+<pre>
+# Clone the repository
+git clone https://github.com/yourusername/NeuroLock_IDS.git
 
-NeuroLock IDS is a **fully functional, real-time intrusion detection system** optimized for local safe testing.  
-It effectively detects:
+# Navigate into project
+cd NeuroLock_IDS
 
-1. Port scans  
-2. ICMP floods  
-3. Suspicious application-layer payloads  
+# Compile the program
+g++ main.cpp -lpcap -o neurolock
 
-This project demonstrates strong **C++ programming skills, network traffic analysis, and practical cybersecurity expertise**.  
-It is a professional portfolio-ready project suitable for **LinkedIn, GitHub, and technical interviews**, showcasing hands-on IDS development and security monitoring.
+# Run (requires root)
+sudo ./neurolock
+</pre>
+
+<h2>Conclusion</h2>
+<p>
+NeuroLock IDS is a fully functional real-time IDS demonstrating strong expertise in:
+</p>
+<ul>
+<li>C++ systems programming</li>
+<li>Network packet analysis</li>
+<li>Cybersecurity monitoring</li>
+</ul>
 
 </div>
+</body>
+</html>
