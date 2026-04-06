@@ -5,9 +5,8 @@
 <pre>
 NeuroLock_IDS/
 ├── project_documentation.md
-├── tests/
-│   └── test_localhost.sh
-└── README.md
+├── NeuroLock_IDS.pdf
+└── neurolock_ids.cpp
 </pre>
 
 <h2>Overview</h2>
